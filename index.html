@@ -11,24 +11,58 @@
       height: 100%;
       background: transparent !important;
     }
+
+    .vf-container,
+    .vf-chat,
+    .vf-launcher {
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+
+    iframe {
+      background: transparent !important;
+    }
+
+    /* Make the entire widget area ignore mouse clicks unless activated */
+    #chat-overlay {
+      pointer-events: none;
+    }
+
+    /* When chat becomes active (optional — JS will control this if needed) */
+    #chat-overlay.active {
+      pointer-events: auto;
+    }
   </style>
 </head>
 <body>
- <script type="text/javascript">
-  (function(d, t) {
-      var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
-      v.onload = function() {
-        window.voiceflow.chat.load({
-          verify: { projectID: '684c0f5344f514520d23d443' },
-          url: 'https://general-runtime.voiceflow.com',
-          versionID: 'production',
-          voice: {
-            url: "https://runtime-api.voiceflow.com"
-          }
-        });
-      }
-      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
-  })(document, 'script');
-</script>
+  <div id="chat-overlay">
+    <script type="text/javascript">
+      (function(d, t) {
+        var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+        v.onload = function() {
+          window.voiceflow.chat.load({
+            verify: { projectID: '684c0f5344f514520d23d443' },
+            url: 'https://general-runtime.voiceflow.com',
+            versionID: 'production',
+            voice: {
+              url: "https://runtime-api.voiceflow.com"
+            }
+          });
+
+          // Optional: when widget is clicked, make it interactive
+          const launcherObserver = new MutationObserver(() => {
+            const isOpen = document.querySelector('.vf-chat')?.style.display !== 'none';
+            const overlay = document.getElementById('chat-overlay');
+            if (overlay) overlay.classList.toggle('active', isOpen);
+          });
+
+          launcherObserver.observe(document.body, { childList: true, subtree: true });
+        };
+        v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
+        v.type = "text/javascript";
+        s.parentNode.insertBefore(v, s);
+      })(document, 'script');
+    </script>
+  </div>
 </body>
 </html>
