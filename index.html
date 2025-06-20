@@ -5,38 +5,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Voiceflow Chat Widget</title>
   <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: transparent !important;
+    }
+
     #chat-container {
       width: 400px;
       height: 600px;
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background: transparent;
       z-index: 9999;
+      background: transparent !important;
+    }
+
+    iframe {
+      background: transparent !important;
     }
   </style>
 </head>
 <body>
-
   <div id="chat-container"></div>
 
   <script type="text/javascript">
     (function(d, t) {
-      var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+      const v = d.createElement(t);
+      const s = d.getElementsByTagName(t)[0];
+
       v.onload = function() {
-        window.voiceflow.chat.load({
-          verify: { projectID: '684c0f5344f514520d23d443' },
-          url: 'https://general-runtime.voiceflow.com',
-          versionID: 'production',
-          voice: { url: "https://runtime-api.voiceflow.com" },
-          render: {
-            mode: 'embedded',
-            target: document.getElementById('chat-container')
-          }
-        });
-      }
+        if (window.voiceflow && window.voiceflow.chat) {
+          window.voiceflow.chat.load({
+            verify: { projectID: '684c0f5344f514520d23d443' },
+            url: 'https://general-runtime.voiceflow.com',
+            versionID: 'production',
+            voice: {
+              url: "https://runtime-api.voiceflow.com"
+            },
+            render: {
+              mode: 'embedded',
+              target: document.getElementById('chat-container')
+            }
+          });
+        } else {
+          console.error('Voiceflow widget did not load correctly.');
+        }
+      };
+
       v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
       v.type = "text/javascript";
+      v.async = true;
       s.parentNode.insertBefore(v, s);
     })(document, 'script');
   </script>
