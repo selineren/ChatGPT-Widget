@@ -4,49 +4,27 @@
    <meta charset="UTF-8" />
    <meta name="viewport" content="width=device-width, initial-scale=1" />
    <title>Voiceflow Chat Widget</title>
-   <style>
-      html, body {
-         margin: 0;
-         padding: 0;
-         height: 100%;
-         display: flex;
-         background: transparent !important;
-      }
-iframe {
-         background: transparent !important;
-     }
-      #my-chat-container {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 9999;
-  background: transparent !important;
-}
-   </style>
 </head>
 <body>
-   <div id="my-chat-container" style="width: 400px; height: 600px;"></div>
-
-<script type="text/javascript">
-  (function() {
-    const script = document.createElement("script");
-    script.src = "https://cdn.voiceflow.com/widget/bundle.mjs";
-    script.type = "module";
-    script.onload = (async () => {
-  const chatWidget = (await import("https://cdn.voiceflow.com/widget/bundle.mjs")).default;
-  chatWidget.mount({
-    verify: { projectID: "684c0f5344f514520d23d443" },
-    versionID: "production",
-    url: "https://general-runtime.voiceflow.com",
-    container: document.getElementById("my-chat-container"),
-    autoload: true
-  });
-})();
-    document.head.appendChild(script);
-  })();
+  <script type="text/javascript">
+  (function(d, t) {
+      var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+      v.onload = function() {
+        window.voiceflow.chat.load({
+          verify: { projectID: '684c0f5344f514520d23d443' },
+          url: 'https://general-runtime.voiceflow.com',
+          versionID: 'production',
+          voice: {
+            url: "https://runtime-api.voiceflow.com"
+          },
+          render: {
+            mode: 'embedded',
+            target: document.getElementById(...)
+          }
+        });
+      }
+      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+  })(document, 'script');
 </script>
-
-
-   
 </body>
 </html>
