@@ -1,30 +1,72 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8" />
-   <meta name="viewport" content="width=device-width, initial-scale=1" />
-   <title>Voiceflow Chat Widget</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Voiceflow Chat Widget</title>
+  <style>
+    html, body {
+      margin: 0; padding: 0; height: 100%; background: transparent !important; overflow: hidden;
+    }
+    #chat-wrapper {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 400px;
+      height: 600px;
+      background: transparent !important;
+      pointer-events: none; /* no interaction when closed */
+      opacity: 0.5;
+      transition: opacity 0.3s ease;
+      z-index: 9999;
+    }
+    #chat-wrapper.open {
+      pointer-events: auto;
+      opacity: 1;
+    }
+    /* force transparent backgrounds inside */
+    .vf-chat, .vf-launcher, .vf-container, iframe {
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+  </style>
 </head>
 <body>
+  <div id="chat-wrapper">
+    <div id="chat-container"></div>
+  </div>
+
   <script type="text/javascript">
-  (function(d, t) {
+    (function(d, t) {
       var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
       v.onload = function() {
         window.voiceflow.chat.load({
           verify: { projectID: '684c0f5344f514520d23d443' },
           url: 'https://general-runtime.voiceflow.com',
           versionID: 'production',
-          voice: {
-            url: "https://runtime-api.voiceflow.com"
-          },
+          voice: { url: "https://runtime-api.voiceflow.com" },
           render: {
             mode: 'embedded',
-            target: document.getElementById(...)
+            target: document.getElementById('chat-container')
           }
         });
-      }
-      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
-  })(document, 'script');
-</script>
+
+        // Add toggle behavior based on launcher click
+        // Wait a bit for widget to load then bind event
+        setTimeout(() => {
+          const launcher = d.querySelector('.vf-launcher');
+          const wrapper = d.getElementById('chat-wrapper');
+          if (launcher && wrapper) {
+            launcher.addEventListener('click', () => {
+              wrapper.classList.toggle('open');
+            });
+          }
+        }, 2000); // adjust delay if needed
+      };
+      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
+      v.type = "text/javascript";
+      s.parentNode.insertBefore(v, s);
+    })(document, 'script');
+  </script>
 </body>
 </html>
