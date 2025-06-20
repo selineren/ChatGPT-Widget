@@ -32,24 +32,20 @@
    </style>
 </head>
 <body>
-   <div class="chat-widget-container">
-      <script type="text/javascript">
-  (function(d, t) {
-      var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
-      v.onload = function() {
-        window.voiceflow.chat.load({
-          verify: { projectID: '684c0f5344f514520d23d443' },
-          url: 'https://general-runtime.voiceflow.com',
-          versionID: 'production',
-          voice: {
-            url: "https://runtime-api.voiceflow.com"
-          }
-        });
-      }
-      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
-  })(document, 'script');
+   <div id="my-chat-container" style="width: 400px; height: 600px;"></div>
+
+<script type="module">
+  import chatWidget from "https://cdn.voiceflow.com/widget-next/bundle.mjs";
+
+  chatWidget.mount({
+    verify: { projectID: "684c0f5344f514520d23d443" },
+    versionID: "production",
+    url: "https://general-runtime.voiceflow.com",
+    container: document.getElementById("my-chat-container"),
+    autoload: true
+  });
 </script>
-   </div>
+
    
 </body>
 </html>
