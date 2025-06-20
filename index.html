@@ -9,24 +9,12 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      background: transparent;
-      overflow: hidden;
-    }
-
-    .chat-widget-container {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 9999;
-      background: transparent;
     }
   </style>
 </head>
 <body>
-  <div class="chat-widget-container" id="vf-container"></div>
-
   <script type="text/javascript">
-    (function(d, t) {
+  (function(d, t) {
       var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
       v.onload = function() {
         window.voiceflow.chat.load({
@@ -35,17 +23,11 @@
           versionID: 'production',
           voice: {
             url: "https://runtime-api.voiceflow.com"
-          },
-          render: {
-            mode: 'embedded',
-            target: document.getElementById('vf-container')
           }
         });
-      };
-      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
-      v.type = "text/javascript";
-      s.parentNode.insertBefore(v, s);
-    })(document, 'script');
-  </script>
+      }
+      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+  })(document, 'script');
+</script>
 </body>
 </html>
