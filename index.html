@@ -1,29 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Voiceflow Chat Widget</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      background: transparent !important;
-    }
-
-    #chat-container {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 9999;
-    }
-  </style>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1" />
+   <title>Voiceflow Chat Widget</title>
+   <style>
+      html, body {
+         margin: 0;
+         padding: 0;
+         height: 100%;
+         overflow: hidden;
+      }
+   </style>
 </head>
 <body>
-  <div id="chat-container"></div>
-
-  <script type="text/javascript">
+   <script type="text/javascript">
   (function(d, t) {
       var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
       v.onload = function() {
@@ -33,10 +24,6 @@
           versionID: 'production',
           voice: {
             url: "https://runtime-api.voiceflow.com"
-          },
-          render: {
-            mode: 'embedded',
-            target: document.getElementById(...)
           }
         });
       }
