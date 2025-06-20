@@ -32,16 +32,16 @@ iframe {
     const script = document.createElement("script");
     script.src = "https://cdn.voiceflow.com/widget/bundle.mjs";
     script.type = "module";
-    script.onload = async () => {
-      const chatWidget = (await import("https://cdn.voiceflow.com/widget/bundle.mjs")).default;
-      chatWidget.mount({
-        verify: { projectID: "684c0f5344f514520d23d443" },
-        versionID: "production",
-        url: "https://general-runtime.voiceflow.com",
-        container: document.getElementById("my-chat-container"),
-        autoload: true
-      });
-    };
+    script.onload = (async () => {
+  const chatWidget = (await import("https://cdn.voiceflow.com/widget/bundle.mjs")).default;
+  chatWidget.mount({
+    verify: { projectID: "684c0f5344f514520d23d443" },
+    versionID: "production",
+    url: "https://general-runtime.voiceflow.com",
+    container: document.getElementById("my-chat-container"),
+    autoload: true
+  });
+})();
     document.head.appendChild(script);
   })();
 </script>
