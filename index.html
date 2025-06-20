@@ -12,14 +12,7 @@
          display: flex;
          background: transparent !important;
       }
-
-      .vf-container,
-     .vf-chat,
-     .vf-launcher {
-      background: transparent !important;
-      box-shadow: none !important;
-     }
-       iframe {
+iframe {
          background: transparent !important;
      }
       .chat-widget-container {
@@ -34,17 +27,25 @@
 <body>
    <div id="my-chat-container" style="width: 400px; height: 600px;"></div>
 
-<script type="module">
-  import chatWidget from "https://cdn.voiceflow.com/widget-next/bundle.mjs";
-
-  chatWidget.mount({
-    verify: { projectID: "684c0f5344f514520d23d443" },
-    versionID: "production",
-    url: "https://general-runtime.voiceflow.com",
-    container: document.getElementById("my-chat-container"),
-    autoload: true
-  });
+<script type="text/javascript">
+  (function() {
+    const script = document.createElement("script");
+    script.src = "https://cdn.voiceflow.com/widget/bundle.mjs";
+    script.type = "module";
+    script.onload = async () => {
+      const chatWidget = (await import("https://cdn.voiceflow.com/widget/bundle.mjs")).default;
+      chatWidget.mount({
+        verify: { projectID: "684c0f5344f514520d23d443" },
+        versionID: "production",
+        url: "https://general-runtime.voiceflow.com",
+        container: document.getElementById("my-chat-container"),
+        autoload: true
+      });
+    };
+    document.head.appendChild(script);
+  })();
 </script>
+
 
    
 </body>
